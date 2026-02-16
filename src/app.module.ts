@@ -1,20 +1,23 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import * as dotenv from 'dotenv';
-dotenv.config();
-import { UsersModule } from './users/users/users.module';
-
-const mongoUri = process.env.MONGO_URI;
-if (!mongoUri) {
-  throw new Error('MONGO_URI not defined in .env');
-}
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(mongoUri),
+    ConfigModule.forRoot({ isGlobal: true }),
+
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        uri: config.get<string>('MONGO_URI'),
+      }),
+    }),
+
     UsersModule,
+    AuthModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
