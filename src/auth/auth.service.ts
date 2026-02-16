@@ -54,6 +54,7 @@ export class AuthService {
       fullName: dto.fullName,
       email: dto.email,
       passwordHash,
+      role: dto.role,
       isEmailVerified: false,
       emailVerificationTokenHash: verificationTokenHash,
       emailVerificationExpiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24), // 24h
@@ -102,6 +103,7 @@ export class AuthService {
         id: user._id,
         fullName: user.fullName,
         email: user.email,
+        role: user.role,
       },
     };
   }
