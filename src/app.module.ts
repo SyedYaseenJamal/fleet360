@@ -16,8 +16,8 @@ import { UsersModule } from './users/users.module';
       }),
     }),
 
-    UsersModule,
     AuthModule,
+    UsersModule,
   ],
 })
 export class AppModule {}
