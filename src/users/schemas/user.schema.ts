@@ -14,6 +14,14 @@ export class User {
   @Prop({ required: true })
   passwordHash: string;
 
+  // Role 
+  @Prop({ 
+    required: true, 
+    enum: ['PRINCIPAL', 'FLEET_MANAGER', 'ACCOUNTANT', 'DRIVER'],
+    default: 'DRIVER'
+  })
+  role: string;
+
   @Prop({ default: false })
   isEmailVerified: boolean;
 
