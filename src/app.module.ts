@@ -7,6 +7,7 @@ import { AgenciesModule } from './agencies/agencies.module';
 import { AgencyAuthModule } from './agency-auth/agency-auth.module';
 import { VehicleModule } from './modules/vehicles/vehicle.module';
 import { OfficesModule } from './offices/dto/offices.module';
+import { DriverModule } from './modules/drivers/driver.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { OfficesModule } from './offices/dto/offices.module';
     UsersModule,
     VehicleModule,
     OfficesModule,
+    DriverModule,
   ],
 })
 export class AppModule {}
