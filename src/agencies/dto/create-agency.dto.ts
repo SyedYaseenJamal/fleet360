@@ -1,17 +1,22 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  MinLength,
-} from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString, IsEnum } from 'class-validator';
+import { SubscriptionTier } from '../schemas/agency.schema';
 
-export class AgencyRegisterDto {
+export class CreateAgencyDto {
   @ApiProperty({ example: 'Fleet Masters Pty Ltd' })
   @IsString()
   @IsNotEmpty()
   agencyName: string;
+
+  @ApiPropertyOptional({ example: 'Real Estate Agency' })
+  @IsOptional()
+  @IsString()
+  businessType?: string;
+
+  @ApiPropertyOptional({ example: '12 345 678 901' })
+  @IsOptional()
+  @IsString()
+  abn?: string;
 
   @ApiProperty({ example: 'contact@fleetmasters.com.au' })
   @IsEmail()
@@ -21,16 +26,6 @@ export class AgencyRegisterDto {
   @IsString()
   @IsNotEmpty()
   contactPhone: string;
-
-  @ApiProperty({ example: 'securePass123', minLength: 6 })
-  @IsString()
-  @MinLength(6)
-  password: string;
-
-  @ApiPropertyOptional({ example: '12 345 678 901' })
-  @IsOptional()
-  @IsString()
-  abn?: string;
 
   @ApiPropertyOptional({ example: '123 Collins Street, Melbourne' })
   @IsOptional()
@@ -51,4 +46,9 @@ export class AgencyRegisterDto {
   @IsOptional()
   @IsString()
   city?: string;
+
+  @ApiPropertyOptional({ enum: SubscriptionTier, example: SubscriptionTier.ESSENTIAL })
+  @IsOptional()
+  @IsEnum(SubscriptionTier)
+  subscriptionTier?: SubscriptionTier;
 }

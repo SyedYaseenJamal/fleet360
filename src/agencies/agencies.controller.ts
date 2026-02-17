@@ -11,6 +11,8 @@ import {
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AgenciesService } from './agencies.service';
+import { CreateAgencyDto } from './dto/create-agency.dto';
+import { UpdateAgencyDto } from './dto/update-agency.dto';
 
 @ApiTags('Agencies')
 @Controller('api/agencies')
@@ -23,7 +25,6 @@ export class AgenciesController {
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Get all agencies (admin)' })
   findAll() {
-    // You can later restrict with role guard
     return this.agenciesService.findAll();
   }
 
@@ -32,8 +33,8 @@ export class AgenciesController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Create agency (admin)' })
-  create(@Body() body: any) {
-    return this.agenciesService.create(body);
+  create(@Body() dto: CreateAgencyDto) {
+    return this.agenciesService.create(dto);
   }
 
   // REQUIRED
@@ -50,8 +51,8 @@ export class AgenciesController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Update agency by ID' })
-  update(@Param('agencyId') agencyId: string, @Body() body: any) {
-    return this.agenciesService.updateById(agencyId, body);
+  update(@Param('agencyId') agencyId: string, @Body() dto: UpdateAgencyDto) {
+    return this.agenciesService.updateById(agencyId, dto);
   }
 
   // ADMIN ONLY (optional)

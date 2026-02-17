@@ -1,0 +1,78 @@
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types } from 'mongoose';
+
+export type VehicleDocument = Vehicle & Document;
+
+export enum FuelType {
+  PETROL = 'PETROL',
+  DIESEL = 'DIESEL',
+  HYBRID = 'HYBRID',
+  EV = 'EV',
+}
+
+export enum VehicleStatus {
+  ACTIVE = 'ACTIVE',
+  IN_SERVICE = 'IN_SERVICE',
+  SOLD = 'SOLD',
+  ARCHIVED = 'ARCHIVED',
+}
+
+export enum LeaseType {
+  OWNED = 'OWNED',
+  LEASED = 'LEASED',
+  FINANCED = 'FINANCED',
+}
+
+@Schema({ timestamps: true })
+export class Vehicle {
+  @Prop({ type: Types.ObjectId, required: false, index: true })
+  agencyId: Types.ObjectId;
+
+  @Prop({ type: Types.ObjectId, required: false, index: true })
+  officeId: Types.ObjectId;
+
+  @Prop({ required: true, unique: true, trim: true })
+  vin: string;
+
+  @Prop({ required: true, trim: true })
+  registrationNumber: string;
+
+  @Prop({ required: true, trim: true })
+  make: string;
+
+  @Prop({ required: true, trim: true })
+  model: string;
+
+  @Prop({ required: true })
+  year: number;
+
+  @Prop({ trim: true })
+  color: string;
+
+  @Prop({ required: true, enum: FuelType })
+  fuelType: FuelType;
+
+  @Prop({ default: 0 })
+  odometerCurrent: number;
+
+  @Prop({ enum: VehicleStatus, default: VehicleStatus.ACTIVE })
+  status: VehicleStatus;
+
+  @Prop({ type: Date })
+  purchaseDate: Date;
+
+  @Prop()
+  purchaseCost: number;
+
+  @Prop({ required: true, enum: LeaseType })
+  leaseType: LeaseType;
+
+  @Prop({ type: Date })
+  leaseExpiryDate: Date;
+}
+
+export const VehicleSchema = SchemaFactory.createForClass(Vehicle);
+
+VehicleSchema.index({ agencyId: 1 });
+VehicleSchema.index({ officeId: 1 });
+VehicleSchema.index({ vin: 1 });
