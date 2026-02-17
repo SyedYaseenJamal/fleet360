@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { AgenciesModule } from './agencies/agencies.module';
 import { AgencyAuthModule } from './agency-auth/agency-auth.module';
 import { VehicleModule } from './modules/vehicles/vehicle.module';
+import { OfficesModule } from './offices/dto/offices.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { VehicleModule } from './modules/vehicles/vehicle.module';
     AgenciesModule,
     UsersModule,
     VehicleModule,
+    OfficesModule,
   ],
 })
 export class AppModule {}
