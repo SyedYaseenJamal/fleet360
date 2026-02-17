@@ -17,7 +17,7 @@ export class User {
   // Role 
   @Prop({ 
     required: true, 
-    enum: ['PRINCIPAL', 'FLEET_MANAGER', 'ACCOUNTANT', 'DRIVER'],
+    enum: ['PASSENGER', 'DRIVER'],
     default: 'DRIVER'
   })
   role: string;
